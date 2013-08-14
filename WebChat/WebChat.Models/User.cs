@@ -19,6 +19,8 @@ namespace WebChat.Model
 
         public string AuthCode { get; set; }
 
+        public string SessionKey { get; set; }
+
         public string Avatar { get; set; }
 
         //public User()
