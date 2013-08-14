@@ -185,5 +185,35 @@ namespace WebChat.Services.Persisters
                 return users.ToList();
             }
         }
+
+        public static void SendMessage(int sender, string username, string content)
+        {
+            using (var context = new WebChatContext())
+            {
+                var receiver = context.Users.Where(x => x.Username == username).FirstOrDefault();
+                var senderUser = context.Users.Find(sender);
+                if (receiver != null)
+                {
+
+                    var message = new Message()
+                    {
+                        Content = content,
+                        Sender = senderUser,
+                        Receiver = receiver,
+                        SentTime = DateTime.Now,
+                        Status = false
+                    };
+                    context.Messages.Add(message);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new ServerErrorException("Invalid username", "ERR_INV_USR");
+                }
+            }
+        }
+
+      
+
     }
 }

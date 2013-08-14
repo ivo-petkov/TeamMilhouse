@@ -76,5 +76,46 @@ namespace WebChat.Services.Controllers
             });
             return responseMsg;
         }
+
+
+        [HttpPost]
+        [ActionName("send")]
+        public HttpResponseMessage SendMessage(string sessionKey, SendMessageModel message)
+        {
+            var responseMsg = this.PerformOperation(() =>
+                {
+                    var sender = UserDataPersister.LoginUser(sessionKey);
+
+                    UserDataPersister.SendMessage(sender, message.Receiver, message.Content);
+                   
+                });
+            return responseMsg;
+        }
+
+        [HttpPost]
+        [ActionName("getmessages")]
+        public HttpResponseMessage GetAllMessages(string sessionKey, GetMessagesModel message)
+        {
+            var responseMsg = this.PerformOperation(() =>
+            {
+                var sender = UserDataPersister.LoginUser(sessionKey);
+
+                IEnumerable<CollectedMessages> messages = MessageDataPersister.GetAllMessagesWithUser(sender, message.Receiver);
+                return messages;
+            });
+            return responseMsg;
+        }
+
+        [HttpPost]
+        [ActionName("clear")]
+        public HttpResponseMessage ClearNotifications(string sessionKey, ClearWithUser otherUser)
+        {
+            var responseMsg = this.PerformOperation(() =>
+                {
+                    var thisAcc = UserDataPersister.LoginUser(sessionKey);
+                    MessageDataPersister.ClearNotificationsWithUser(thisAcc, otherUser.User);
+                });
+            return responseMsg;
+        }
     }
 }
