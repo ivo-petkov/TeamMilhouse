@@ -27,11 +27,10 @@ namespace WebChat.Services.Controllers
             var responseMsg = this.PerformOperation(() =>
             {
                 UserDataPersister.CreateUser(user.Username, user.AuthCode);
-                string username = string.Empty;
                 var sessionKey = UserDataPersister.LoginUser(user.Username, user.AuthCode);
                 return new UserLoggedModel()
                 {
-                    UserName = username,
+                    UserName = user.Username,
                     SessionKey = sessionKey
                 };
             });
@@ -44,11 +43,11 @@ namespace WebChat.Services.Controllers
         {
             var responseMsg = this.PerformOperation(() =>
             {
-                string nickname = string.Empty;
                 var sessionKey = UserDataPersister.LoginUser(user.Username, user.AuthCode);
                 return new UserLoggedModel()
                 {
-                    SessionKey = sessionKey
+                    SessionKey = sessionKey,
+                    UserName = user.Username
                 };
             });
             return responseMsg;
