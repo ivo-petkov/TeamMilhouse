@@ -186,6 +186,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\MessageModel.cs" />
@@ -323,6 +324,10 @@
     <ProjectReference Include="..\WebChat.Data\WebChat.Data.csproj">
       <Project>{480cddc7-914a-4172-914a-68f79d07b76d}</Project>
       <Name>WebChat.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebChat.DropboxUploader\WebChat.DropboxUploader.csproj">
+      <Project>{0d263b40-eaa6-450b-8dfc-2ad7e68cc11e}</Project>
+      <Name>WebChat.DropboxUploader</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebChat.Models\WebChat.Models.csproj">
       <Project>{079673ee-1b3e-48cc-a5a5-b94c3c952067}</Project>

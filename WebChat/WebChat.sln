@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Services", "WebChat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Services.Tests", "WebChat.Services.Tests\WebChat.Services.Tests.csproj", "{DBCD102D-F7BF-4876-BF72-AE1D6A8F6957}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.DropboxUploader", "WebChat.DropboxUploader\WebChat.DropboxUploader.csproj", "{0D263B40-EAA6-450B-8DFC-2AD7E68CC11E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{DBCD102D-F7BF-4876-BF72-AE1D6A8F6957}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBCD102D-F7BF-4876-BF72-AE1D6A8F6957}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBCD102D-F7BF-4876-BF72-AE1D6A8F6957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D263B40-EAA6-450B-8DFC-2AD7E68CC11E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D263B40-EAA6-450B-8DFC-2AD7E68CC11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D263B40-EAA6-450B-8DFC-2AD7E68CC11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D263B40-EAA6-450B-8DFC-2AD7E68CC11E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
