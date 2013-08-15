@@ -213,7 +213,26 @@ namespace WebChat.Services.Persisters
             }
         }
 
-      
+        public static string GetAvatar(int userId)
+        {
+            var context = new WebChatContext();
+            using (context)
+            {
+                var user = context.Users.Find(userId);
+                return user.Avatar;
+            }
+        }
+
+        public static void UpdateUserAvatar(int userId, string avatar)
+        {
+            var context = new WebChatContext();
+            using (context)
+            {
+                var user = context.Users.Find(userId);
+                user.Avatar = avatar;
+                context.SaveChanges();
+            }
+        }
 
     }
 }

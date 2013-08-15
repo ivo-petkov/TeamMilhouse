@@ -19,7 +19,7 @@ namespace WebChat.DropboxUploader
 
         private static string OAuthTokenFileName = System.Web.HttpContext.Current.Server.MapPath("~/OAuthTokenFileName.txt");
 
-        public static string FileUpload(string path)
+        public static string FileUpload(string path, bool isAvatar)
         {
             DropboxServiceProvider dropboxServiceProvider =
                 new DropboxServiceProvider(DropboxAppKey, DropboxAppSecret, AccessLevel.AppFolder);
@@ -50,7 +50,16 @@ namespace WebChat.DropboxUploader
             // Share a file
             DropboxLink sharedUrl = dropbox.GetShareableLinkAsync(uploadFileEntry.Path).Result;
             //Process.Start(sharedUrl.Url);
-            return sharedUrl.Url;
+
+            if (isAvatar)
+            {
+                var link = dropbox.GetMediaLinkAsync(uploadFileEntry.Path);
+                return link.Result.Url;
+            }
+            else
+            {
+                return sharedUrl.Url;
+            }
         }
 
         private static OAuthToken LoadOAuthToken()

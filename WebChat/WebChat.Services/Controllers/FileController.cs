@@ -69,7 +69,7 @@ namespace WebChat.Services.Controllers
                     var filePath = HttpContext.Current.Server.MapPath("~/" + postedFile.FileName);
                     postedFile.SaveAs(filePath);
 
-                    var dropBoxUrl = DropboxFileUploader.FileUpload(postedFile.FileName);
+                    var dropBoxUrl = DropboxFileUploader.FileUpload(postedFile.FileName, false);
 
                     System.IO.File.Delete(HttpContext.Current.Server.MapPath("~/" + postedFile.FileName));
 

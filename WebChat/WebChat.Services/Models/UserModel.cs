@@ -34,5 +34,8 @@ namespace WebChat.Services.Controllers
 
         [DataMember(Name = "UserName")]
         public string UserName { get; set; }
+
+        [DataMember(Name = "Avatar")]
+        public string Avatar { get; set; }
     }
 }

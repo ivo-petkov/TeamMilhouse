@@ -8,6 +8,8 @@ using WebChat.Services.Models;
 using System.Text;
 using System.Web.Http.Cors;
 using WebChat.Services.Persisters;
+using System.Web;
+using WebChat.DropboxUploader;
 
 namespace WebChat.Services.Controllers
 {
@@ -31,7 +33,8 @@ namespace WebChat.Services.Controllers
                 return new UserLoggedModel()
                 {
                     UserName = user.Username,
-                    SessionKey = sessionKey
+                    SessionKey = sessionKey,
+                    //Avatar = default avatar
                 };
             });
             return responseMsg;
@@ -44,10 +47,13 @@ namespace WebChat.Services.Controllers
             var responseMsg = this.PerformOperation(() =>
             {
                 var sessionKey = UserDataPersister.LoginUser(user.Username, user.AuthCode);
+                var userId = UserDataPersister.LoginUser(sessionKey);
+                var avatar = UserDataPersister.GetAvatar(userId);
                 return new UserLoggedModel()
                 {
                     SessionKey = sessionKey,
-                    UserName = user.Username
+                    UserName = user.Username,
+                    Avatar = avatar
                 };
             });
             return responseMsg;
@@ -87,7 +93,7 @@ namespace WebChat.Services.Controllers
                     var sender = UserDataPersister.LoginUser(sessionKey);
 
                     UserDataPersister.SendMessage(sender, message.Receiver, message.Content);
-                   
+
                 });
             return responseMsg;
         }
@@ -115,6 +121,59 @@ namespace WebChat.Services.Controllers
                     var thisAcc = UserDataPersister.LoginUser(sessionKey);
                     MessageDataPersister.ClearNotificationsWithUser(thisAcc, otherUser.User);
                 });
+            return responseMsg;
+        }
+
+        [HttpPost]
+        [ActionName("changeavatar")]
+        public HttpResponseMessage ChangeAvatar()
+        {
+            HttpResponseMessage result = null;
+            var httpRequest = HttpContext.Current.Request;
+
+            // Check if files are available
+            if (httpRequest.Files.Count > 0)
+            {
+                var files = new List<string>();
+
+                // interate the files and save on the server
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+
+
+                    var filePath = HttpContext.Current.Server.MapPath("~/" + postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+
+                    var dropBoxUrl = DropboxFileUploader.FileUpload(postedFile.FileName, true);
+
+                    System.IO.File.Delete(HttpContext.Current.Server.MapPath("~/" + postedFile.FileName));
+
+                    files.Add(dropBoxUrl);
+                }
+
+                // return result
+                result = Request.CreateResponse(HttpStatusCode.Created, files);
+            }
+            else
+            {
+                // return BadRequest (no file(s) available)
+                result = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            return result;
+        }
+
+        [HttpPut]
+        [ActionName("updateAvatar")]
+        public HttpResponseMessage UpdateAvatar(string sessionKey, [FromBody] string avatar)
+        {
+            var responseMsg = this.PerformOperation(() =>
+            {
+                var userid = UserDataPersister.LoginUser(sessionKey);
+
+                UserDataPersister.UpdateUserAvatar(userid, avatar);
+            });
             return responseMsg;
         }
     }
