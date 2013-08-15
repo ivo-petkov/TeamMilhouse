@@ -34,7 +34,7 @@ namespace WebChat.Services.Controllers
                 {
                     UserName = user.Username,
                     SessionKey = sessionKey,
-                    Avatar = "https://dl-web.dropbox.com/get/Apps/TeamMilhouse/Avatars/default_avatar1234375017.jpg?w=AAChV5kjQusx9YZOewlGvifCNfzmIfmeYOF_18UR8BvxHg"
+                    Avatar = @"https://dl.dropboxusercontent.com/s/3v8l4mflw50mtqz/default_avatar1234375017.jpg?token_hash=AAH4OQXSsLs4ZjTQYLzKkn_Wc8loL8aKnnX8xhi9t-z40A\u0026dl=1\"
                 };
             });
             return responseMsg;
