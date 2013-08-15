@@ -24,6 +24,9 @@ namespace WebChat.Services.Controllers
 
         [DataMember(Name = "username")]
         public string UserName { get; set; }
+
+        [DataMember(Name = "Avatar")]
+        public string Avatar { get; set; }
     }
 
     [DataContract]

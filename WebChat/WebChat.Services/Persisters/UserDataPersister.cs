@@ -181,6 +181,7 @@ namespace WebChat.Services.Persisters
                      {
                          Id = (int)user.UserId,
                          UserName = user.Username,
+                         Avatar = user.Avatar
                      });
                 return users.ToList();
             }
