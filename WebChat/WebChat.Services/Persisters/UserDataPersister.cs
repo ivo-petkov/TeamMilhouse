@@ -78,7 +78,7 @@ namespace WebChat.Services.Persisters
 
         private static void ValidateAuthCode(string authCode)
         {
-            if (authCode.Length != Sha1CodeLength || authCode != "da39a3ee5e6b4b0d3255bfef95601890afd80709")
+            if (authCode.Length != Sha1CodeLength || authCode == "da39a3ee5e6b4b0d3255bfef95601890afd80709")
             {
                 throw new ServerErrorException("Invalid user authentication", "INV_USR_AUTH");
             }
