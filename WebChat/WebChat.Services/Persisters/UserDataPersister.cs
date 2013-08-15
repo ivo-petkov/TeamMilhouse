@@ -111,7 +111,8 @@ namespace WebChat.Services.Persisters
                 dbUser = new User()
                 {
                     Username = usernameToLower,
-                    AuthCode = authCode
+                    AuthCode = authCode,
+                    Avatar = @"https://dl.dropboxusercontent.com/s/3v8l4mflw50mtqz/default_avatar1234375017.jpg?token_hash=AAH4OQXSsLs4ZjTQYLzKkn_Wc8loL8aKnnX8xhi9t-z40A\u0026dl=1\"
                 };
                 context.Users.Add(dbUser);
                 context.SaveChanges();
