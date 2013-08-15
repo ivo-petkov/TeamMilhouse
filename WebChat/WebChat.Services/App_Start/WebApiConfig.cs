@@ -9,6 +9,8 @@ namespace WebChat.Services
     {
         public static void Register(HttpConfiguration config)
         {
+            config.EnableCors(new System.Web.Http.Cors.EnableCorsAttribute("*", "*", "*"));
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{sessionKey}",
