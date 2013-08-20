@@ -10,7 +10,7 @@ namespace WebChat.Services
     {
         public static void Register(HttpConfiguration config)
         {
-            //config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
