@@ -10,6 +10,8 @@ using System.Web.Http.Cors;
 using WebChat.Services.Persisters;
 using System.Web;
 using WebChat.DropboxUploader;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace WebChat.Services.Controllers
 {
@@ -59,7 +61,7 @@ namespace WebChat.Services.Controllers
             return responseMsg;
         }
 
-        [HttpGet]
+        [HttpPut]
         [ActionName("logout")]
         public HttpResponseMessage LogoutUser(string sessionKey)
         {
@@ -126,8 +128,37 @@ namespace WebChat.Services.Controllers
 
         [HttpPost]
         [ActionName("changeavatar")]
-        public HttpResponseMessage ChangeAvatar()
+        public HttpResponseMessage ChangeAvatar(string sessionKey)
         {
+            //var responseMsg = this.PerformOperation(() =>
+            //{
+            //    var httpRequest = HttpContext.Current.Request;
+            //    if (httpRequest.Files.Count > 0)
+            //    {
+            //        var files = new List<string>();
+
+            //        // interate the files and save on the server
+            //        foreach (string file in httpRequest.Files)
+            //        {
+            //            var postedFile = httpRequest.Files[file];
+            //            var root = HttpContext.Current.Server.MapPath("~/App_Data/");
+            //            var filePath = root + postedFile.FileName;
+            //            postedFile.SaveAs(filePath);
+
+            //            var dropBoxUrl = DropboxFileUploader.FileUpload(postedFile.FileName, true);
+
+            //            System.IO.File.Delete(root + postedFile.FileName);
+
+            //            files.Add(dropBoxUrl);
+            //        }
+
+            //        return files;
+            //    }
+
+            //    return Request.CreateResponse(HttpStatusCode.BadRequest);
+            //});
+            //return responseMsg;
+
             HttpResponseMessage result = null;
             var httpRequest = HttpContext.Current.Request;
 
@@ -140,14 +171,13 @@ namespace WebChat.Services.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
-
-
-                    var filePath = HttpContext.Current.Server.MapPath("~/" + postedFile.FileName);
+                    var root = HttpContext.Current.Server.MapPath("~/App_Data/");
+                    var filePath = root + postedFile.FileName;
                     postedFile.SaveAs(filePath);
 
                     var dropBoxUrl = DropboxFileUploader.FileUpload(postedFile.FileName, true);
 
-                    System.IO.File.Delete(HttpContext.Current.Server.MapPath("~/" + postedFile.FileName));
+                    System.IO.File.Delete(root + postedFile.FileName);
 
                     files.Add(dropBoxUrl);
                 }
@@ -164,15 +194,58 @@ namespace WebChat.Services.Controllers
             return result;
         }
 
+        //[HttpPost]
+        //[ActionName("changeavatar")]
+        //public async Task<HttpResponseMessage> PostMultipartStream()
+        //{
+        //    // Check if the request contains multipart/form-data.
+        //    if (!Request.Content.IsMimeMultipartContent())
+        //    {
+        //        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+        //    }
+
+        //    string root = HttpContext.Current.Server.MapPath("~/App_Data/");
+        //    var provider = new MultipartFormDataStreamProvider(root);
+
+        //    try
+        //    {
+        //        // Read the form data.
+        //        var content = await Request.Content.ReadAsMultipartAsync(provider);
+        //        var contents = content.Contents;
+        //        // This illustrates how to get the file names.
+        //        foreach (MultipartFileData file in provider.FileData)
+        //        {
+        //            Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+        //            Trace.WriteLine("Server file path: " + file.LocalFileName);
+        //        }
+
+        //        var fileName = content.FileData.First().LocalFileName;
+        //        File postedFile = 
+        //        postedFile.SaveAs(root + fileName);
+
+        //        var dropBoxUrl = DropboxFileUploader.FileUpload(fileName, true);
+
+        //        System.IO.File.Delete(HttpContext.Current.Server.MapPath(root + fileName));
+
+        //        files.Add(dropBoxUrl);
+
+        //        return Request.CreateResponse(HttpStatusCode.OK);
+        //    }
+        //    catch (System.Exception e)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+        //    }
+        //}
+
         [HttpPut]
         [ActionName("updateAvatar")]
-        public HttpResponseMessage UpdateAvatar(string sessionKey, [FromBody] string avatar)
+        public HttpResponseMessage UpdateAvatar(string sessionKey, [FromBody] AvatarModel avatar)
         {
             var responseMsg = this.PerformOperation(() =>
             {
                 var userid = UserDataPersister.LoginUser(sessionKey);
 
-                UserDataPersister.UpdateUserAvatar(userid, avatar);
+                UserDataPersister.UpdateUserAvatar(userid, avatar.Avatar);
             });
             return responseMsg;
         }

@@ -235,6 +235,5 @@ namespace WebChat.Services.Persisters
                 context.SaveChanges();
             }
         }
-
     }
 }

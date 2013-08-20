@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebChat.Services
 {
@@ -9,8 +10,7 @@ namespace WebChat.Services
     {
         public static void Register(HttpConfiguration config)
         {
-            var cors = new System.Web.Http.Cors.EnableCorsAttribute("http://webchatclient.apphb.com/", "*", "*");
-            config.EnableCors(cors);
+            //config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

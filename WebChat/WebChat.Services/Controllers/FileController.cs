@@ -64,14 +64,14 @@ namespace WebChat.Services.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
+                    var root = HttpContext.Current.Server.MapPath("~/App_Data/");
 
-
-                    var filePath = HttpContext.Current.Server.MapPath("~/" + postedFile.FileName);
+                    var filePath = root + postedFile.FileName;
                     postedFile.SaveAs(filePath);
 
                     var dropBoxUrl = DropboxFileUploader.FileUpload(postedFile.FileName, false);
 
-                    System.IO.File.Delete(HttpContext.Current.Server.MapPath("~/" + postedFile.FileName));
+                    System.IO.File.Delete(root + postedFile.FileName);
 
                     files.Add(dropBoxUrl);
                 }

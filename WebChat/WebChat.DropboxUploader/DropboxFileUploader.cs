@@ -29,6 +29,7 @@ namespace WebChat.DropboxUploader
             {
                 AuthorizeAppOAuth(dropboxServiceProvider);
             }
+
             OAuthToken oauthAccessToken = LoadOAuthToken();
 
             // Login in Dropbox
@@ -44,7 +45,7 @@ namespace WebChat.DropboxUploader
 
             // Upload a file
             Entry uploadFileEntry = dropbox.UploadFileAsync(
-                new FileResource(System.Web.HttpContext.Current.Server.MapPath("~/" + path)),
+                new FileResource(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/" + path)),
                 "/" + newFolderName + "/" + path).Result;
 
             // Share a file

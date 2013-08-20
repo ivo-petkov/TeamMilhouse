@@ -189,6 +189,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Models\AvatarModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Global.asax.cs">
