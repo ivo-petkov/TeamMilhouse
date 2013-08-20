@@ -12,9 +12,11 @@ using WebChat.Model;
 using WebChat.Data;
 using System.IO;
 using WebChat.DropboxUploader;
+using System.Web.Http.Cors;
 
 namespace WebChat.Services.Controllers
 {
+	[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FileController : ApiController
     {
         //    // GET api/values
