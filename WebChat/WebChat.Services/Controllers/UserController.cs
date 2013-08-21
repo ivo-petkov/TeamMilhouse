@@ -63,7 +63,7 @@ namespace WebChat.Services.Controllers
             return responseMsg;
         }
 
-        [HttpPut]
+        [HttpGet]
         [ActionName("logout")]
         public HttpResponseMessage LogoutUser(string sessionKey)
         {
