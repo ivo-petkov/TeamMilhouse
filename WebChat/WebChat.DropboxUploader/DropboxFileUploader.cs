@@ -25,10 +25,10 @@ namespace WebChat.DropboxUploader
                 new DropboxServiceProvider(DropboxAppKey, DropboxAppSecret, AccessLevel.AppFolder);
 
             // Authenticate the application (if not authenticated) and load the OAuth token
-            if (!File.Exists(OAuthTokenFileName))
-            {
-                AuthorizeAppOAuth(dropboxServiceProvider);
-            }
+            //if (!File.Exists(OAuthTokenFileName))
+            //{
+            //    AuthorizeAppOAuth(dropboxServiceProvider);
+            //}
 
             OAuthToken oauthAccessToken = LoadOAuthToken();
 
@@ -65,8 +65,9 @@ namespace WebChat.DropboxUploader
 
         private static OAuthToken LoadOAuthToken()
         {
-            string[] lines = File.ReadAllLines(OAuthTokenFileName);
-            OAuthToken oauthAccessToken = new OAuthToken(lines[0], lines[1]);
+            //string[] lines = File.ReadAllLines(OAuthTokenFileName);
+            //OAuthToken oauthAccessToken = new OAuthToken(lines[0], lines[1]);
+            OAuthToken oauthAccessToken = new OAuthToken("e9pxf2qnehrm691a", "3dxhbociqb9oai8");
             return oauthAccessToken;
         }
 
